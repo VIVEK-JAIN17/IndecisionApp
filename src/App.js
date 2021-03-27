@@ -1,8 +1,5 @@
-// import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-// import Counter from './playground/counter-example';
-// import VisibilityToggle from './playground/build-it-visible';
 
 class IndecisionApp extends React.Component {
 
@@ -68,60 +65,54 @@ class IndecisionApp extends React.Component {
   }
 }
 
-class Header extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>{this.props.title}</h1>
-        <h2>{this.props.subtitle}</h2>
-      </div>
-    );
-  }
+const Header = (props) => {
+
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <h2>{props.subtitle}</h2>
+    </div>
+  );
 };
 
-class Action extends React.Component {
+const Action = (props) => {
 
-  render() {
-    return (
-      <div>
-        <button
-          onClick={this.props.pickRandom}
-          disabled={!this.props.hasOptions}
-        >
-          What should i do ?
+  return (
+    <div>
+      <button
+        onClick={props.pickRandom}
+        disabled={!props.hasOptions}
+      >
+        What should i do ?
          </button>
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-class Options extends React.Component {
+const Options = (props) => {
 
-  render() {
-    const options = this.props.options;
-    const len = options.length;
-    return (
-      <div>
-        <h4>Options Component Here</h4>
-        <p>You have {len} options! Your options are :-</p>
-        {options.map((option) => <Option key={option} option={option} />)}
-        <button onClick={this.props.handleRemoveAll}>Remove All</button>
-      </div>
-    );
-  }
-}
+  const options = props.options;
+  const len = options.length;
+  return (
+    <div>
+      <h4>Options Component Here</h4>
+      <p>You have {len} options! Your options are :-</p>
+      {options.map((option) => <Option key={option} option={option} />)}
+      <button onClick={props.handleRemoveAll}>Remove All</button>
+    </div>
+  );
+};
 
-class Option extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>
-          <strong>{this.props.option}</strong>
-        </p>
-      </div>
-    );
-  }
-}
+const Option = (props) => {
+
+  return (
+    <div>
+      <p>
+        <strong>{props.option}</strong>
+      </p>
+    </div>
+  );
+};
 
 class AddOption extends React.Component {
 
@@ -172,12 +163,10 @@ class AddOption extends React.Component {
   }
 }
 
-function App() {
+const App = () => {
   return (
     <div>
       <IndecisionApp />
-      {/* <Counter />
-      <VisibilityToggle /> */}
     </div>
   );
 }
