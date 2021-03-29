@@ -1,14 +1,12 @@
-// import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-// import Counter from './playground/counter-example';
-// import VisibilityToggle from './playground/build-it-visible';
 
 class IndecisionApp extends React.Component {
 
   constructor(props) {
     super(props);
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+    this.handleDeleteOption = this.handleDeleteOption.bind(this);
     this.pickRandom = this.pickRandom.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
     this.state = {
@@ -18,12 +16,14 @@ class IndecisionApp extends React.Component {
 
   // passed down to Options component
   handleDeleteOptions() {
-    this.setState(() => {
-      return {
-        options: []
-      };
-    })
+    this.setState(() => ({ options: [] }));
   }
+
+  // passed down to Options component
+  handleDeleteOption(option) {
+    this.setState((prevState) => ({ options: prevState.options.filter((op) => op !== option) }))
+  }
+
 
   // passed down to Action component
   pickRandom() {
@@ -37,14 +37,12 @@ class IndecisionApp extends React.Component {
     if (!option) {
       return 'Enter Valid Value to Add in List !';
     } else if (this.state.options.indexOf(option) > -1) {
-      return 'This Option Alreasy Exists !!'
+      return 'This Option Already Exists !!'
     }
 
-    this.setState((prevState) => {
-      return {
-        options: prevState.options.concat([option])
-      }
-    })
+    this.setState((prevState) => ({
+      options: prevState.options.concat([option])
+    }));
   }
 
   render() {
@@ -61,6 +59,7 @@ class IndecisionApp extends React.Component {
         <Options
           options={this.state.options}
           handleRemoveAll={this.handleDeleteOptions}
+          handleRemove={this.handleDeleteOption}
         />
         <AddOption handleAddOption={this.handleAddOption} />
       </div>
@@ -68,60 +67,71 @@ class IndecisionApp extends React.Component {
   }
 }
 
-class Header extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>{this.props.title}</h1>
-        <h2>{this.props.subtitle}</h2>
-      </div>
-    );
-  }
+const Header = (props) => {
+
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <h2>{props.subtitle}</h2>
+    </div>
+  );
 };
 
-class Action extends React.Component {
+const Action = (props) => {
 
-  render() {
-    return (
-      <div>
-        <button
-          onClick={this.props.pickRandom}
-          disabled={!this.props.hasOptions}
-        >
-          What should i do ?
+  return (
+    <div>
+      <button
+        onClick={props.pickRandom}
+        disabled={!props.hasOptions}
+      >
+        What should i do ?
          </button>
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-class Options extends React.Component {
+const Options = (props) => {
 
-  render() {
-    const options = this.props.options;
-    const len = options.length;
-    return (
-      <div>
-        <h4>Options Component Here</h4>
-        <p>You have {len} options! Your options are :-</p>
-        {options.map((option) => <Option key={option} option={option} />)}
-        <button onClick={this.props.handleRemoveAll}>Remove All</button>
-      </div>
-    );
-  }
-}
+  const options = props.options;
+  const len = options.length;
+  return (
+    <div>
+      <h4>Options Component Here</h4>
+      <p>You have {len} options! Your options are :-</p>
+      {
+        options.map((option) => (
+          <Option
+            key={option}
+            option={option}
+            handleRemove={props.handleRemove}
+          />
+        ))
+      }
+      <button onClick={props.handleRemoveAll}>Remove All</button>
+    </div>
+  );
+};
 
-class Option extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>
-          <strong>{this.props.option}</strong>
-        </p>
-      </div>
-    );
-  }
-}
+const Option = (props) => {
+
+  return (
+    <div>
+      <p>
+        <strong>{props.option}</strong>
+        <button
+          onClick={(e) => props.handleRemove(props.option)}
+        >delete
+        </button>
+      </p>
+    </div>
+  );
+
+  /* What I have done here is that I referenced an Arrow Function and
+   called NOT REFERENCED the method handleRemove() with the option value 
+   as the parameter. That way I was able to pass down a parameter to a 
+   method of a parent component.  */
+};
 
 class AddOption extends React.Component {
 
@@ -147,7 +157,7 @@ class AddOption extends React.Component {
     e.target.elements.newItem.value = '';
 
     /* *********** Method 1 *********** */
-    this.setState(() => { return { error: error } })
+    this.setState(() => ({ error: error }));
 
     /* *********** Method 2 *********** */
     // this.setState(() => { return { error } })
@@ -172,12 +182,10 @@ class AddOption extends React.Component {
   }
 }
 
-function App() {
+const App = () => {
   return (
     <div>
       <IndecisionApp />
-      {/* <Counter />
-      <VisibilityToggle /> */}
     </div>
   );
 }
