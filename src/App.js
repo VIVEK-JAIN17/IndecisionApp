@@ -14,6 +14,44 @@ class IndecisionApp extends React.Component {
     }
   }
 
+  // lifecycle method
+  componentDidMount() {
+    /* fires everytime after the component gets mounted  */
+
+    /* try catch is necessary to makesure that the options which the 
+      localStorage retrieved holds valid json. If not this could break
+      generate an error while parsing (JSON.parse()) and break the code. 
+    */
+
+    try {
+
+      // retrieve the opitons from localStorage
+      const json = localStorage.getItem('options');
+      const options = JSON.parse(json);
+
+      /* Set the state by updating options array with retrieved options
+        only if the options are not null else we do nothing 
+      */
+      if (options) {
+        this.setState(() => ({ options }))
+      }
+
+    } catch (err) {
+      // We do nothing
+    }
+  }
+
+  // lifecycle method
+  componentDidUpdate(prevProps, prevState) {
+    /* fires everytime after a component gets updated */
+
+    // set the options in the localStorage if it's updated
+    if (prevState.options.length !== this.state.options.length) {
+      const json = JSON.stringify(this.state.options);
+      localStorage.setItem('options', json);
+    }
+  }
+
   // passed down to Options component
   handleDeleteOptions() {
     this.setState(() => ({ options: [] }));
@@ -95,10 +133,12 @@ const Options = (props) => {
 
   const options = props.options;
   const len = options.length;
+  const str1 = `You have ${len} options! Your options are :-`;
+  const str2 = `Please add an option to get started !`;
+
   return (
     <div>
-      <h4>Options Component Here</h4>
-      <p>You have {len} options! Your options are :-</p>
+      <p>{len ? str1 : str2}</p>
       {
         options.map((option) => (
           <Option
@@ -154,13 +194,16 @@ class AddOption extends React.Component {
     /* *********** Method 2 *********** */
     const option = e.target.elements.newItem.value.trim();
     const error = this.props.handleAddOption(option);
-    e.target.elements.newItem.value = '';
 
     /* *********** Method 1 *********** */
     this.setState(() => ({ error: error }));
 
     /* *********** Method 2 *********** */
     // this.setState(() => { return { error } })
+
+    if (!error) {
+      e.target.elements.newItem.value = '';
+    }
 
     /** trim() function is a built-in function that removes all the leading spaces
      * and the trailing spaces but NOT the inner spaces from the string. For example,
