@@ -1,15 +1,12 @@
-const Action = (props) => {
-
-    return (
-        <div>
-            <button
-                onClick={props.pickRandom}
-                disabled={!props.hasOptions}
-            >
-                What should i do ?
+const Action = (props) => (
+    <div>
+        <button
+            onClick={props.pickRandom}
+            disabled={!props.hasOptions}
+        >
+            What should i do ?
            </button>
-        </div>
-    );
-};
+    </div>
+);
 
 export default Action;

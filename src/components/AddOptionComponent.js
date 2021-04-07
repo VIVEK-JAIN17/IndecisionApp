@@ -2,15 +2,11 @@ import React from 'react';
 
 class AddOption extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.state = {
-            error: undefined
-        }
+    state = {
+        error: undefined
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
 
         /* *********** Method 1 *********** */
@@ -37,7 +33,7 @@ class AddOption extends React.Component {
          * for a string '    vivek jain    ' , the output after appying trim() function
          * will be 'vivek jain' (notice how space netween vivek and jain is NOT removed).
          */
-    }
+    };
 
     render() {
         return (

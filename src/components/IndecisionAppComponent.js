@@ -3,19 +3,51 @@ import Header from './HeaderComponent';
 import Action from './ActionComponent';
 import Options from './OptionsComponent';
 import AddOption from './AddOptionComponent';
-
+import OptionModal from './OptionModalComponent';
 
 class IndecisionApp extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-        this.handleDeleteOption = this.handleDeleteOption.bind(this);
-        this.pickRandom = this.pickRandom.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.state = {
-            options: []
+    state = {
+        options: [],
+        selectedOption: undefined
+    }
+
+    // passed down to Options component
+    handleDeleteOptions = () => {
+        this.setState(() => ({ options: [] }));
+    };
+
+    // passed down to Options component
+    handleDeleteOption = (option) => {
+        this.setState((prevState) => ({ options: prevState.options.filter((op) => op !== option) }));
+    };
+
+
+    // passed down to Action component
+    pickRandom = () => {
+        const a = Math.floor(Math.random() * this.state.options.length);
+        const opt = this.state.options[a];
+        this.setState((prevState) => ({ selectedOption: opt }));
+        // prevState.options[a]
+    };
+
+    // passed down to AddOption Component
+    handleAddOption = (option) => {
+
+        if (!option) {
+            return 'Enter Valid Value to Add in List !';
+        } else if (this.state.options.indexOf(option) > -1) {
+            return 'This Option Already Exists !!'
         }
+
+        this.setState((prevState) => ({
+            options: prevState.options.concat([option])
+        }));
+    };
+
+    // passed down to OptionModal Component
+    handleToggleModal = () => {
+        this.setState(() => ({ selectedOption: undefined }));
     }
 
     // lifecycle method
@@ -56,37 +88,6 @@ class IndecisionApp extends React.Component {
         }
     }
 
-    // passed down to Options component
-    handleDeleteOptions() {
-        this.setState(() => ({ options: [] }));
-    }
-
-    // passed down to Options component
-    handleDeleteOption(option) {
-        this.setState((prevState) => ({ options: prevState.options.filter((op) => op !== option) }))
-    }
-
-
-    // passed down to Action component
-    pickRandom() {
-        const a = Math.floor(Math.random() * this.state.options.length);
-        alert(this.state.options[a]);
-    }
-
-    // passed down to AddOption Component
-    handleAddOption(option) {
-
-        if (!option) {
-            return 'Enter Valid Value to Add in List !';
-        } else if (this.state.options.indexOf(option) > -1) {
-            return 'This Option Already Exists !!'
-        }
-
-        this.setState((prevState) => ({
-            options: prevState.options.concat([option])
-        }));
-    }
-
     render() {
 
         const title = 'Indecision App';
@@ -104,6 +105,10 @@ class IndecisionApp extends React.Component {
                     handleRemove={this.handleDeleteOption}
                 />
                 <AddOption handleAddOption={this.handleAddOption} />
+                <OptionModal
+                    selectedOption={this.state.selectedOption}
+                    clearSelection={this.handleToggleModal}
+                />
             </div>
         );
     }
