@@ -1,6 +1,7 @@
 const Action = (props) => (
-    <div>
+    <div className="action">
         <button
+            className="button big-button"
             onClick={props.pickRandom}
             disabled={!props.hasOptions}
         >

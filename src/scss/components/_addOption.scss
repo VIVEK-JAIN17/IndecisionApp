@@ -1,0 +1,23 @@
+.addOption {
+  .error-msg {
+    color: $off-white;
+    font-style: italic;
+    margin: $m-size 0 0 0;
+    padding: 0 $m-size;
+  }
+
+  .form {
+    display: flex;
+    padding: $m-size;
+
+    .input {
+      flex-grow: 1;
+      background-color: $dark-blue;
+      color: $off-white;
+      border: none;
+      border-bottom: 0.3rem solid darken($dark-blue, 10%);
+      padding: $m-size;
+      margin-right: $s-size;
+    }
+  }
+}

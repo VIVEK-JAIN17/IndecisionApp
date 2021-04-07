@@ -1,0 +1,12 @@
+.option {
+  padding: $m-size;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.1rem solid lighten($light-blue, 10%);
+
+  p {
+    font-size: 2rem;
+    text-transform: capitalize;
+    color: lighten($off-white, 10%);
+  }
+}

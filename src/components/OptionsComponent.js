@@ -8,18 +8,29 @@ const Options = (props) => {
     const str2 = `Please add an option to get started !`;
 
     return (
+
         <div>
-            <p>{len ? str1 : str2}</p>
+            <div className="header">
+                <h3>Your Options</h3>
+                <button
+                    className="button link-button"
+                    onClick={props.handleRemoveAll}
+                >
+                    Remove All
+                </button>
+            </div>
+
+            <p className="message">{len ? str1 : str2}</p>
             {
-                options.map((option) => (
+                options.map((option, index) => (
                     <Option
                         key={option}
                         option={option}
+                        count={index + 1}
                         handleRemove={props.handleRemove}
                     />
                 ))
             }
-            <button onClick={props.handleRemoveAll}>Remove All</button>
         </div>
     );
 };

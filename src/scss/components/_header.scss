@@ -1,0 +1,17 @@
+.header {
+  margin-bottom: $xl-size;
+  padding: $m-size 0;
+  background-color: $off-black;
+
+  h1 {
+    font-size: $l-size;
+    text-transform: capitalize;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: $m-size;
+    text-transform: capitalize;
+    color: $off-white;
+  }
+}

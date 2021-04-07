@@ -37,11 +37,11 @@ class AddOption extends React.Component {
 
     render() {
         return (
-            <div>
-                {this.state.error && (<p>{this.state.error}</p>)}
-                <form onSubmit={this.handleSubmit}>
-                    <input placeholder='Add Option Here' id='newItem' name='newItem' />
-                    <input type='submit' value='Add Option to List!' />
+            <div className="addOption">
+                {this.state.error && (<p className="error-msg">{this.state.error}</p>)}
+                <form className="form" onSubmit={this.handleSubmit}>
+                    <input className="input" placeholder='Add Option Here' id='newItem' name='newItem' />
+                    <input className='button normal-button' type='submit' value='Add Option to List!' />
                 </form>
             </div>
         );
