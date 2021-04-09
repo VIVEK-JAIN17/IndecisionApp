@@ -8,5 +8,7 @@
     font-size: 2rem;
     text-transform: capitalize;
     color: lighten($off-white, 10%);
+    word-break: break-all;
+    padding-right: $s-size;
   }
 }

@@ -1,6 +1,6 @@
 .header {
-  margin-bottom: $xl-size;
-  padding: $m-size 0;
+  margin-bottom: $m-size;
+  padding: $s-size 0;
   background-color: $off-black;
 
   h1 {
@@ -10,8 +10,23 @@
   }
 
   h2 {
-    font-size: $m-size;
+    font-size: $s-size;
     text-transform: capitalize;
     color: $off-white;
+  }
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .header {
+    margin-bottom: $xl-size;
+    padding: $m-size;
+    
+    h1 {
+      font-size: $xl-size;
+    }
+
+    h2 {
+      font-size: $m-size;
+    }
   }
 }

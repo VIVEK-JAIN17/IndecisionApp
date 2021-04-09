@@ -1,7 +1,8 @@
 const Option = (props) => (
     <div className="option">
         <p>
-            <strong>{props.count}. {props.option}</strong>
+            <span className="count"> {props.count}. </span>
+            <strong> {props.option} </strong>
         </p>
         <button
             className="button link-button"

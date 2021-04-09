@@ -8,7 +8,9 @@
 
   .form {
     display: flex;
+    flex-direction: column;
     padding: $m-size;
+    margin-bottom: 0;
 
     .input {
       flex-grow: 1;
@@ -16,8 +18,20 @@
       color: $off-white;
       border: none;
       border-bottom: 0.3rem solid darken($dark-blue, 10%);
+      margin: 0 0 $s-size 0;
       padding: $m-size;
-      margin-right: $s-size;
+    }
+  }
+}
+
+@media (min-width: 45rem) {
+  .addOption {
+    .form {
+      flex-direction: row;
+
+      .input {
+        margin: 0 $s-size 0 0;
+      }
     }
   }
 }

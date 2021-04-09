@@ -1,6 +1,6 @@
 .widget {
   background-color: $light-blue;
-  padding-bottom: $l-size;
+  padding-bottom: $s-size;
   margin-bottom: $xl-size;
 
   .header {
@@ -23,5 +23,11 @@
     border-bottom: 0.1rem solid lighten($light-blue, 10%);
     font-weight: 600;
     text-align: center;
+  }
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .widget {
+    padding-bottom: $l-size;
   }
 }
